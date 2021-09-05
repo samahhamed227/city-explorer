@@ -68,3 +68,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# Documentation
+![Wrrc](src/WRRC.PNG)
+
+
+## Name of feature:Asynchronous code, and APIs
+
+## Estimate of time needed to complete:5 hours
+
+## Start time: 1.30
+
+## Finish time: 7
+
+## Actual time needed to complete: 6
