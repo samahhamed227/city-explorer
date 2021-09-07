@@ -17,7 +17,7 @@ errormessege:false
 
   getlocation = async(e) =>{
     e.preventDefault();
-    let locurl =`https://eu1.locationiq.com/v1/search.php?key=pk.a3f9f6d3de5c5ff8062271be60bec4e7&q=${this.state.searchQuery}&format=json`;
+    let locurl =`https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
     try{
 
       let locresult = await axios.get(locurl);
@@ -58,7 +58,7 @@ errormessege:true
 <p  style={{ textAlign:'center'}}>{this.state.locData.lat}</p>
 <p  style={{ textAlign:'center'}}>{this.state.locData.lon}</p>
 {
-  this.state.displayed&& <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.a3f9f6d3de5c5ff8062271be60bec4e7&center=${this.state.locData.lat},${this.state.locData.lon}`}  style={{ margin: '150px', width: '1000px' }}
+  this.state.displayed&& <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locData.lat},${this.state.locData.lon}`}  style={{ margin: '150px', width: '1000px' }}
   alt='map'
   />
   
