@@ -12,6 +12,7 @@ class App extends React.Component {
       displayed: false,
       errormessege: false,
       weatherData: [],
+      // moviesData: [],
     };
   }
 
@@ -19,23 +20,29 @@ class App extends React.Component {
     e.preventDefault();
 
     try {
+      let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
 
-    let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
-     
-    let locresult = await axios.get(locurl);
+      let locresult = await axios.get(locurl);
 
-    console.log(locresult.data[0]);
-    this.setState({
-      locData: locresult.data[0],
-      displayed: true,
-    });
-    let axiosLocalApi = `http://${process.env.REACT_APP_SERVER_URL}/weather?city_name=${this.state.searchQuery}`;
+      console.log(locresult.data[0]);
+      this.setState({
+        locData: locresult.data[0],
+        displayed: true,
+      });
+      let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${this.state.searchQuery}`;
 
-      let axiosresult = await axios.get(axiosLocalApi);
+       let axiosresult = await axios.get(axiosLocalApi);
+      // const moviesres = await axios.get(
+      //   `http://localhost:3003/movie?query=${this.state.searchQuery}`
+      // );
       this.setState({
         weatherData: axiosresult.data,
       });
-      console.log("weatherData",this.state.weatherData);
+
+      // this.setState({
+      //   moviesData: moviesres.data,
+      // });
+      console.log("weatherData", this.state.weatherData);
     } catch {
       this.setState({
         displayed: false,
@@ -47,6 +54,7 @@ class App extends React.Component {
   updates = (event) => {
     this.setState({
       searchQuery: event.target.value,
+      newCity: event.target.value,
     });
     console.log(this.state.searchQuery);
   };
@@ -70,6 +78,28 @@ class App extends React.Component {
             searchQuery={this.state.searchQuery}
           />
         </div>
+        {/* <h1>Movies Data</h1>
+        {this.state.moviesData.map((j, key) => (
+          <div>
+            <p>title: {j.title}</p>
+
+            <p>overview: {j.overview}</p>
+
+            <p>average vote: {j.vote_average}</p>
+
+            <p>total vote: {j.vote_count}</p>
+
+            <img
+              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${j.poster_path}`}
+              alt={"img"}
+            />
+
+            <p>popularity: {j.popularity}</p>
+
+            <p>release date: {j.release_date}</p>
+          </div>
+        ))} */}
+
         {this.state.displayed && (
           <img
             src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locData.lat},${this.state.locData.lon}`}
