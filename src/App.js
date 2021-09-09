@@ -18,19 +18,15 @@ class App extends React.Component {
 
   getlocation = async (e) => {
     e.preventDefault();
-
     try {
       let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
-
       let locresult = await axios.get(locurl);
-
       console.log(locresult.data[0]);
       this.setState({
         locData: locresult.data[0],
         displayed: true,
       });
       let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${this.state.searchQuery}`;
-
        let axiosresult = await axios.get(axiosLocalApi);
       // const moviesres = await axios.get(
       //   `http://localhost:3003/movie?query=${this.state.searchQuery}`
@@ -109,7 +105,7 @@ class App extends React.Component {
         )}
         {this.state.errormessege && (
           <p style={{ textAlign: "center", color: "red" }}>
-            erroing in the data
+          404  erroing in the data
           </p>
         )}
       </div>
