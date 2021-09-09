@@ -12,7 +12,7 @@ class App extends React.Component {
       displayed: false,
       errormessege: false,
       weatherData: [],
-      moviesData: [],
+      // moviesData: [],
     };
   }
 
@@ -29,19 +29,19 @@ class App extends React.Component {
         locData: locresult.data[0],
         displayed: true,
       });
-      let axiosLocalApi = `http://localhost:3003/weather?city_name=${this.state.searchQuery}`;
+      let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${this.state.searchQuery}`;
 
-      let axiosresult = await axios.get(axiosLocalApi);
-      const moviesres = await axios.get(
-        `http://localhost:3003/movie?query=${this.state.searchQuery}`
-      );
+       let axiosresult = await axios.get(axiosLocalApi);
+      // const moviesres = await axios.get(
+      //   `http://localhost:3003/movie?query=${this.state.searchQuery}`
+      // );
       this.setState({
         weatherData: axiosresult.data,
       });
 
-      this.setState({
-        moviesData: moviesres.data,
-      });
+      // this.setState({
+      //   moviesData: moviesres.data,
+      // });
       console.log("weatherData", this.state.weatherData);
     } catch {
       this.setState({
@@ -78,7 +78,7 @@ class App extends React.Component {
             searchQuery={this.state.searchQuery}
           />
         </div>
-        <h1>Movies Data</h1>
+        {/* <h1>Movies Data</h1>
         {this.state.moviesData.map((j, key) => (
           <div>
             <p>title: {j.title}</p>
@@ -98,7 +98,7 @@ class App extends React.Component {
 
             <p>release date: {j.release_date}</p>
           </div>
-        ))}
+        ))} */}
 
         {this.state.displayed && (
           <img
