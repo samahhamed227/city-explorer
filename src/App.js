@@ -14,31 +14,23 @@ class App extends React.Component {
       displayed: false,
       errormessege: false,
       weatherData: [],
-
       locationMovie: [],
-
-      // moviesData: [],
-
     };
   }
 
   getlocation = async (e) => {
     e.preventDefault();
+
     try {
       let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
 
-
       let locationres = await axios.get(locurl);
-
-
-    
 
       console.log(locationres.data[0]);
       this.setState({
         locData: locationres.data[0],
         displayed: true,
       });
-
       let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city=${this.state.searchQuery}`;
 
       let axiosresult = await axios.get(axiosLocalApi);
@@ -52,20 +44,6 @@ class App extends React.Component {
       this.setState({
         locationMovie: moviesaxios.data,
       });
-
-      let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${this.state.searchQuery}`;
-       let axiosresult = await axios.get(axiosLocalApi);
-      // const moviesres = await axios.get(
-      //   `http://localhost:3003/movie?query=${this.state.searchQuery}`
-      // );
-      this.setState({
-        weatherData: axiosresult.data,
-      });
-
-      // this.setState({
-      //   moviesData: moviesres.data,
-      // });
-
     } catch {
       this.setState({
         displayed: false,
@@ -77,7 +55,6 @@ class App extends React.Component {
   updates = (event) => {
     this.setState({
       searchQuery: event.target.value,
-      newCity: event.target.value,
     });
     console.log(this.state.searchQuery);
   };
@@ -94,36 +71,6 @@ class App extends React.Component {
         <p style={{ textAlign: "center" }}>{this.state.locData.display_name}</p>
         <p style={{ textAlign: "center" }}>{this.state.locData.lat}</p>
         <p style={{ textAlign: "center" }}>{this.state.locData.lon}</p>
-
-
-        <div>
-          <Weather
-            weatherData={this.state.weatherData}
-            searchQuery={this.state.searchQuery}
-          />
-        </div>
-        {/* <h1>Movies Data</h1>
-        {this.state.moviesData.map((j, key) => (
-          <div>
-            <p>title: {j.title}</p>
-
-            <p>overview: {j.overview}</p>
-
-            <p>average vote: {j.vote_average}</p>
-
-            <p>total vote: {j.vote_count}</p>
-
-            <img
-              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${j.poster_path}`}
-              alt={"img"}
-            />
-
-            <p>popularity: {j.popularity}</p>
-
-            <p>release date: {j.release_date}</p>
-          </div>
-        ))} */}
-
 
         {this.state.displayed && (
           <img
@@ -144,7 +91,7 @@ class App extends React.Component {
 
         {this.state.errormessege && (
           <p style={{ textAlign: "center", color: "red" }}>
-          404  erroing in the data
+            erroing in the data
           </p>
         )}
       </div>
