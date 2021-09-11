@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "react-bootstrap/Table";
 class Weather extends React.Component {
   render() {
+    console.log(this.props);
     return (
-
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -21,21 +21,9 @@ class Weather extends React.Component {
           );
         })}
       </Table>
-
-<div>
- {this.props.weatherData.map((element) => {
-              return (
-                <p style={{ textAlign: "center" }}>
-                {element.description} {element.date}
-                </p>
-              );
-            })}
-         
-        
-      </div>
-
     );
   }
 }
 
 export default Weather;
+
