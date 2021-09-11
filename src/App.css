@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+#moviesRow{
+  justify-content: space-between;
+  margin: auto 25px;
+}
