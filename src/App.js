@@ -3,6 +3,8 @@ import "./App.css";
 import axios from "axios";
 import React from "react";
 import Weather from "./components/weather";
+import Movie from "./components/Movie";
+import "./App.css";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,11 @@ class App extends React.Component {
       displayed: false,
       errormessege: false,
       weatherData: [],
+
+      locationMovie: [],
+
       // moviesData: [],
+
     };
   }
 
@@ -20,12 +26,33 @@ class App extends React.Component {
     e.preventDefault();
     try {
       let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
+
+
       let locresult = await axios.get(locurl);
+
+
+      let locresult = await axios.get(locurl);
+
       console.log(locresult.data[0]);
       this.setState({
         locData: locresult.data[0],
         displayed: true,
       });
+
+      let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city=${this.state.searchQuery}`;
+
+      let axiosresult = await axios.get(axiosLocalApi);
+      this.setState({
+        weatherData: axiosresult.data,
+      });
+      const response4 = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/movies?query=${this.state.searchQuery}`
+      );
+
+      this.setState({
+        locationMovie: response4.data,
+      });
+
       let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city_name=${this.state.searchQuery}`;
        let axiosresult = await axios.get(axiosLocalApi);
       // const moviesres = await axios.get(
@@ -38,7 +65,7 @@ class App extends React.Component {
       // this.setState({
       //   moviesData: moviesres.data,
       // });
-      console.log("weatherData", this.state.weatherData);
+
     } catch {
       this.setState({
         displayed: false,
@@ -68,6 +95,7 @@ class App extends React.Component {
         <p style={{ textAlign: "center" }}>{this.state.locData.lat}</p>
         <p style={{ textAlign: "center" }}>{this.state.locData.lon}</p>
 
+
         <div>
           <Weather
             weatherData={this.state.weatherData}
@@ -96,6 +124,7 @@ class App extends React.Component {
           </div>
         ))} */}
 
+
         {this.state.displayed && (
           <img
             src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locData.lat},${this.state.locData.lon}`}
@@ -103,6 +132,16 @@ class App extends React.Component {
             alt="map"
           />
         )}
+        <div>
+          <Weather
+            weatherData={this.state.weatherData}
+            searchQuery={this.state.searchQuery}
+          />
+        </div>
+        <div>
+          <Movie locationMovie={this.state.locationMovie} />
+        </div>
+
         {this.state.errormessege && (
           <p style={{ textAlign: "center", color: "red" }}>
           404  erroing in the data
