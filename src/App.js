@@ -24,11 +24,11 @@ class App extends React.Component {
     try {
       let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
 
-      let locresult = await axios.get(locurl);
+      let locationres = await axios.get(locurl);
 
-      console.log(locresult.data[0]);
+      console.log(locationres.data[0]);
       this.setState({
-        locData: locresult.data[0],
+        locData: locationres.data[0],
         displayed: true,
       });
       let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city=${this.state.searchQuery}`;
@@ -37,12 +37,12 @@ class App extends React.Component {
       this.setState({
         weatherData: axiosresult.data,
       });
-      const response4 = await axios.get(
+      const moviesaxios = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/movies?query=${this.state.searchQuery}`
       );
 
       this.setState({
-        locationMovie: response4.data,
+        locationMovie: moviesaxios.data,
       });
     } catch {
       this.setState({
