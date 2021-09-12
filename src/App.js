@@ -5,6 +5,7 @@ import React from "react";
 import Weather from "./components/weather";
 import Movie from "./components/Movie";
 import "./App.css";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -98,4 +99,6 @@ class App extends React.Component {
     );
   }
 }
+
+
 export default App;

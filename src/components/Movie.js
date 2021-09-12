@@ -27,13 +27,14 @@ class Movie extends React.Component {
                 }}
               >
                 <Card.Title>Movie</Card.Title>
+                <Card.Img variant="top" src={element.img_url} alt={element.title}  />
                 <Card.Text>{element.title}</Card.Text>
                 <Card.Text>{element.overview}</Card.Text>
                 <Card.Text>{element.vote}</Card.Text>
                 <Card.Text>{element.count}</Card.Text>
                 <Card.Text>{element.release_date}</Card.Text>
                 <Card.Text>{element.popularity}</Card.Text>
-                <Card.Img variant="top" src={element.img_url} alt={element.title}  />
+                
               </Card.Body>
             </Card>
             </Col>
