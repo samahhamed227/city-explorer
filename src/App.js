@@ -25,26 +25,27 @@ class App extends React.Component {
     try {
       let locurl = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
 
-      let locationres = await axios.get(locurl);
+     axios.get(locurl).then((item)=>
 
-      console.log(locationres.data[0]);
       this.setState({
-        locData: locationres.data[0],
+        locData: item.data[0],
         displayed: true,
-      });
+      })
+     )
       let axiosLocalApi = `${process.env.REACT_APP_SERVER_URL}/weather?city=${this.state.searchQuery}`;
 
-      let axiosresult = await axios.get(axiosLocalApi);
+        axios.get(axiosLocalApi).then((element)=>
       this.setState({
-        weatherData: axiosresult.data,
-      });
-      const moviesaxios = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/movies?query=${this.state.searchQuery}`
-      );
+        weatherData: element.data,
+      })
+        )
+      const moviesaxios =`${process.env.REACT_APP_SERVER_URL}/movies?query=${this.state.searchQuery}`;
+        axios.get(moviesaxios).then((item)=>
 
       this.setState({
-        locationMovie: moviesaxios.data,
-      });
+        locationMovie: item.data,
+      })
+       )
     } catch {
       this.setState({
         displayed: false,
